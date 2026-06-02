@@ -1,10 +1,12 @@
-
 import os
 from flask import Flask, jsonify, request
 from supabase import create_client
 
 app = Flask(__name__)
-supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_SERVICE_KEY"])
+
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+supabase = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
 @app.route("/")
 def health():
