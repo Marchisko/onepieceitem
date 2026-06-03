@@ -28,4 +28,23 @@ def get_cards():
     set_id = request.args.get("set_id")
     rarity = request.args.get("rarity")
     limit = request.args.get("limit", "50")
-    offset = request.args.get("offse
+    offset = request.args.get("offset", "0")
+    if name: params.append(f"name=ilike.*{name}*")
+    if set_id: params.append(f"set_id=eq.{set_id}")
+    if rarity: params.append(f"rarity=eq.{rarity}")
+    params.append(f"limit={limit}&offset={offset}")
+    data = supabase_get("cards", "&".join(params))
+    return jsonify({"cards": data})
+
+@app.route("/api/cards/<card_id>")
+def get_card(card_id):
+    data = supabase_get("cards", f"id=eq.{card_id}")
+    return jsonify(data[0] if data else {})
+
+@app.route("/api/sets")
+def get_sets():
+    data = supabase_get("sets", "order=id")
+    return jsonify(data)
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
