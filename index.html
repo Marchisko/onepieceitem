@@ -45,6 +45,10 @@ body::before{display:none;}
 .hdr-btn:hover{color:#e8c56d;}
 .hdr-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 .hdr-lang{font-size:11px;font-weight:700;letter-spacing:.06em;}
+.hdr-premium{color:var(--gold-light) !important;opacity:1 !important;}
+.hdr-premium svg{stroke:var(--gold-light);fill:var(--gold-light);}
+.hdr-premium span{font-size:11px;font-weight:700;letter-spacing:.03em;}
+.hdr-premium:hover{color:#fff !important;}
 .hdr-user span{font-size:11px;font-weight:600;}
 
 /* ===== PAGES ===== */
@@ -327,6 +331,10 @@ body::before{display:none;}
       <svg viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
     </button>
     <button class="hdr-btn hdr-lang" id="langBtn" onclick="toggleLang()" title="Switch language">FR</button>
+    <button class="hdr-btn hdr-premium" onclick="switchPageById('pagePremium')" title="Premium">
+      <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      <span>Premium</span>
+    </button>
     <button class="hdr-btn hdr-user" id="userBtn" onclick="handleUserBtn()">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
       <span id="userBtnLabel">Connexion</span>
