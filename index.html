@@ -227,7 +227,26 @@ body::before{display:none;}
 .set-progress-track{height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;}
 .set-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width .7s ease;}
 
-/* ===== BOTTOM NAV ===== */
+/* ===== PREMIUM ===== */
+.premium-section{margin:12px 0 80px;background:linear-gradient(160deg,#1a1a2e,#0f0f1a);border-radius:20px;padding:28px 20px;border:1px solid rgba(232,197,109,0.2);}
+.premium-eyebrow{font-size:10px;color:var(--gold-light);letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;}
+.premium-title{font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:6px;}
+.premium-sub{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.5;}
+.premium-features{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;}
+.premium-feature{font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:8px;}
+.premium-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.premium-plan{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;position:relative;}
+.premium-plan--featured{background:rgba(232,197,109,.08);border-color:rgba(232,197,109,.35);}
+.premium-plan-badge{font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:3px 8px;border-radius:20px;}
+.premium-plan-badge--gold{background:rgba(232,197,109,.2);color:var(--gold-light);}
+.premium-plan-name{font-size:12px;color:rgba(255,255,255,.6);font-weight:500;}
+.premium-plan-price{font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff;}
+.premium-plan-price span{font-size:12px;font-weight:400;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;}
+.premium-plan-trial{font-size:10px;color:rgba(255,255,255,.4);}
+.premium-plan-btn{width:100%;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;margin-top:4px;transition:all .2s;}
+.premium-plan-btn--gold{background:var(--gold);border-color:var(--gold);color:#1a1a2e;}
+.premium-plan-btn:hover{opacity:.85;}
+.premium-legal{font-size:10px;color:rgba(255,255,255,.25);text-align:center;}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:40;
   background:#1a1a2e;
   border-top:none;
@@ -449,6 +468,42 @@ body::before{display:none;}
     <div class="pc" style="margin-top:0;background:linear-gradient(135deg,#1a0a1a,#241238);border-color:rgba(236,72,153,0.15);">
       <div class="pc-title" style="margin-bottom:6px;">Wishlist</div>
       <div id="profilWishSummary" style="font-size:13px;color:var(--text-dim);"></div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="premium-section">
+      <div class="premium-eyebrow">✦ Nakama Premium</div>
+      <div class="premium-title">Débloquez tout le potentiel</div>
+      <div class="premium-sub">Valorisation en temps réel, graphiques d'évolution, scan par caméra</div>
+
+      <div class="premium-features">
+        <div class="premium-feature">📈 Valeur de collection en temps réel</div>
+        <div class="premium-feature">📊 Graphiques d'évolution sur 30 jours</div>
+        <div class="premium-feature">📷 Scan de cartes par caméra</div>
+        <div class="premium-feature">☁️ Synchronisation multi-appareils</div>
+        <div class="premium-feature">🔔 Alertes de prix</div>
+      </div>
+
+      <div class="premium-plans">
+        <!-- Hebdomadaire -->
+        <div class="premium-plan">
+          <div class="premium-plan-badge">2 jours offerts</div>
+          <div class="premium-plan-name">Hebdomadaire</div>
+          <div class="premium-plan-price">1,50 €<span>/semaine</span></div>
+          <div class="premium-plan-trial">Essai gratuit 2 jours</div>
+          <button class="premium-plan-btn" onclick="handlePremium('weekly')">Commencer</button>
+        </div>
+        <!-- Mensuel -->
+        <div class="premium-plan premium-plan--featured">
+          <div class="premium-plan-badge premium-plan-badge--gold">4 jours offerts</div>
+          <div class="premium-plan-name">Mensuel</div>
+          <div class="premium-plan-price">2,99 €<span>/mois</span></div>
+          <div class="premium-plan-trial">Essai gratuit 4 jours</div>
+          <button class="premium-plan-btn premium-plan-btn--gold" onclick="handlePremium('monthly')">Commencer</button>
+        </div>
+      </div>
+
+      <div class="premium-legal">Résiliable à tout moment. Sans engagement.</div>
     </div>
   </div>
 </div>
@@ -1374,6 +1429,11 @@ async function searchCardById(cardId){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 let shareDataUrl = null;
+
+function handlePremium(plan){
+  // Placeholder — à connecter avec RevenueCat ou Stripe lors du lancement
+  showToast(currentLang==='fr'?'Bientôt disponible !':'Coming soon!');
+}
 
 function renderPriceChart(priceData){
   const wrap=document.getElementById('priceChartWrap');
