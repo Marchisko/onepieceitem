@@ -504,52 +504,51 @@ body::before{display:none;}
 
 <!-- PREMIUM PAGE -->
 <div class="page" id="pagePremium">
-  <div class="page-inner-header" style="background:#1a1a2e;border-bottom:none;">
-    <div class="page-inner-eyebrow" style="color:var(--gold-light);">✦ Nakama Premium</div>
-    <div class="page-inner-title" style="color:#fff;">Débloquez tout<br>le potentiel</div>
-    <div class="page-inner-sub" style="color:rgba(255,255,255,.5);">Valorisation en temps réel, graphiques d'évolution, scan par caméra</div>
-  </div>
-  <div class="page-inner" style="padding:0;background:#1a1a2e;min-height:100vh;">
-    <div style="padding:24px 16px;">
-      <div class="premium-features">
-        <div class="premium-feature">📈 Valeur de collection en temps réel</div>
-        <div class="premium-feature">📊 Graphiques d'évolution sur 30 jours</div>
-        <div class="premium-feature">📷 Scan de cartes par caméra</div>
-        <div class="premium-feature">☁️ Synchronisation multi-appareils</div>
-        <div class="premium-feature">🔔 Alertes de prix</div>
+  <div style="background:#1a1a2e;min-height:100vh;padding-bottom:100px;">
+    <div style="background:#1a1a2e;padding:28px 20px 16px;border-bottom:1px solid rgba(232,197,109,0.1);">
+      <div style="font-size:9px;color:var(--gold-light);letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;">✦ Nakama Premium</div>
+      <div style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:6px;">Débloquez tout<br>le potentiel</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.45);line-height:1.5;">Valorisation en temps réel, graphiques d'évolution, scan par caméra</div>
+    </div>
+    <div style="padding:20px 16px;">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px;">
+        <div style="font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">📈</span> Valeur de collection en temps réel</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">📊</span> Graphiques d'évolution sur 30 jours</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">📷</span> Scan de cartes par caméra</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">☁️</span> Synchronisation multi-appareils</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:10px;"><span style="font-size:16px;">🔔</span> Alertes de prix</div>
       </div>
 
-      <div class="premium-plans" style="margin-top:28px;">
-        <div class="premium-plan">
-          <div class="premium-plan-badge">2 jours offerts</div>
-          <div class="premium-plan-name">Hebdomadaire</div>
-          <div class="premium-plan-price">1,50 €<span>/semaine</span></div>
-          <div class="premium-plan-trial">Essai gratuit 2 jours</div>
-          <button class="premium-plan-btn" onclick="handlePremium('weekly')">Commencer</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:3px 8px;border-radius:20px;">2 jours offerts</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:500;">Hebdomadaire</div>
+          <div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff;">1,50 €<span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;">/sem.</span></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.35);">Essai gratuit 2 jours</div>
+          <button onclick="handlePremium('weekly')" style="width:100%;padding:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;margin-top:4px;">Commencer</button>
         </div>
-        <div class="premium-plan premium-plan--featured">
-          <div class="premium-plan-badge premium-plan-badge--gold">4 jours offerts</div>
-          <div class="premium-plan-name">Mensuel</div>
-          <div class="premium-plan-price">2,99 €<span>/mois</span></div>
-          <div class="premium-plan-trial">Essai gratuit 4 jours</div>
-          <button class="premium-plan-btn premium-plan-btn--gold" onclick="handlePremium('monthly')">Commencer</button>
+        <div style="background:rgba(232,197,109,.08);border:1px solid rgba(232,197,109,.35);border-radius:14px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;">
+          <div style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(232,197,109,.2);color:var(--gold-light);padding:3px 8px;border-radius:20px;">4 jours offerts</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.6);font-weight:500;">Mensuel</div>
+          <div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff;">2,99 €<span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;">/mois</span></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.35);">Essai gratuit 4 jours</div>
+          <button onclick="handlePremium('monthly')" style="width:100%;padding:10px;background:var(--gold);border:none;color:#1a1a2e;border-radius:10px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;margin-top:4px;">Commencer</button>
         </div>
-      </div>
-      <div class="premium-plan premium-plan--annual" style="margin-top:10px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
-          <div>
-            <div class="premium-plan-badge premium-plan-badge--gold" style="margin-bottom:5px;">Meilleur prix · 30% off</div>
-            <div class="premium-plan-name" style="text-align:left;color:rgba(255,255,255,.7);">Annuel</div>
-          </div>
-          <div style="text-align:right;">
-            <div class="premium-plan-price" style="font-size:26px;">24,99 €<span>/an</span></div>
-            <div class="premium-plan-trial" style="color:rgba(255,255,255,.35);">soit 2,08 € / mois</div>
-          </div>
-        </div>
-        <button class="premium-plan-btn premium-plan-btn--gold" style="width:100%;margin-top:12px;" onclick="handlePremium('annual')">Commencer</button>
       </div>
 
-      <div class="premium-legal" style="margin-top:20px;">Résiliable à tout moment. Sans engagement.</div>
+      <div style="background:rgba(232,197,109,.08);border:1px solid rgba(232,197,109,.35);border-radius:14px;padding:18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <div>
+          <div style="font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:rgba(232,197,109,.2);color:var(--gold-light);padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:6px;">Meilleur prix · 30% off</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.7);font-weight:500;">Annuel</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:#fff;">24,99 €<span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;">/an</span></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.35);">soit 2,08 € / mois</div>
+        </div>
+      </div>
+      <button onclick="handlePremium('annual')" style="width:100%;padding:14px;background:var(--gold);border:none;color:#1a1a2e;border-radius:12px;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;margin-bottom:16px;">Commencer — Annuel</button>
+
+      <div style="font-size:10px;color:rgba(255,255,255,.25);text-align:center;">Résiliable à tout moment. Sans engagement.</div>
     </div>
   </div>
 </div>
