@@ -17,11 +17,12 @@ export default async function handler(req, res) {
 
   try {
     const isOnepiece = game === 'onepiece';
-    const gameKeyword = isOnepiece ? 'One Piece Card Game' : 'Pokemon';
     const base = set ? set.split('_')[0] : '';
 
-    // Recherche EN
-    const queryEN = `${name} ${base} ${gameKeyword}`.trim();
+    // Recherche EN — pas besoin du nom du jeu, PriceCharting le trouve sans
+    const queryEN = isOnepiece
+      ? `${name} ${base} One Piece Card Game`.trim()
+      : `${name} ${base}`.trim();
     const searchEN = await fetch(
       `https://www.pricecharting.com/api/products?q=${encodeURIComponent(queryEN)}&t=${PC_TOKEN}&status=price`,
       { headers: { 'User-Agent': 'Nakama/1.0' } }
