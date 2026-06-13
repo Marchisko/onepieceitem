@@ -36,6 +36,9 @@ body::before{display:none;}
 .logo{display:flex;align-items:center;gap:7px;flex-shrink:0;text-decoration:none;}
 .logo-mark{width:26px;height:26px;background:var(--gold-light);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#1a1a2e;flex-shrink:0;}
 .logo-text{font-size:17px;font-weight:700;color:#fff;letter-spacing:.01em;}
+.game-switch{display:flex;align-items:center;background:rgba(255,255,255,.1);border-radius:20px;padding:3px;gap:2px;flex-shrink:0;}
+.game-btn{background:none;border:none;color:rgba(255,255,255,.5);font-size:10px;font-weight:700;font-family:'DM Sans',sans-serif;padding:4px 9px;border-radius:16px;cursor:pointer;transition:all .2s;white-space:nowrap;letter-spacing:.03em;}
+.game-btn.active{background:#fff;color:#1a1a2e;}
 .search-wrap{flex:1;position:relative;}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:13px;}
 .search-input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:8px 16px 8px 34px;color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s,background .2s;}
@@ -328,10 +331,14 @@ body::before{display:none;}
 <div class="header">
   <div class="header-inner">
     <div class="logo">
-      <svg viewBox="0 0 130 36" height="36" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-        <text x="65" y="22" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="3">NAKAMA</text>
-        <text x="65" y="32" font-family="Georgia,serif" font-size="5.5" fill="rgba(232,197,109,0.75)" text-anchor="middle" letter-spacing="2.5">ONE PIECE CARD TRACKER</text>
+      <svg viewBox="0 0 120 36" height="36" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+        <text x="4" y="20" font-family="Georgia,serif" font-size="16" font-weight="700" fill="#ffffff" letter-spacing="2">NAKAMA</text>
+        <text x="4" y="32" font-family="Georgia,serif" font-size="7" fill="rgba(232,197,109,0.75)" letter-spacing="0.5" id="taglineText">Ton compagnon TCG</text>
       </svg>
+    </div>
+    <div class="game-switch">
+      <button class="game-btn active" id="btnOP" onclick="switchGame('onepiece')">One Piece</button>
+      <button class="game-btn" id="btnPK" onclick="switchGame('pokemon')">Pokémon</button>
     </div>
     <div class="search-wrap" id="searchWrap">
       <span class="search-icon">🔍</span>
@@ -367,51 +374,9 @@ body::before{display:none;}
   <div class="filters-wrap">
     <div class="filters" id="rarityFilters">
       <button class="chip active" onclick="setRarity(null,this)">Tout</button>
-      <button class="chip" onclick="setRarity('Leader',this)">Leader</button>
-      <button class="chip" onclick="setRarity('SecretRare',this)">Secret Rare</button>
-      <button class="chip" onclick="setRarity('SuperRare',this)">Super Rare</button>
-      <button class="chip" onclick="setRarity('Rare',this)">Rare</button>
-      <button class="chip" onclick="setRarity('Uncommon',this)">Uncommon</button>
-      <button class="chip" onclick="setRarity('Common',this)">Common</button>
-      <button class="chip" onclick="setRarity('Special',this)">Special</button>
     </div>
     <div class="filters" id="setFilters">
       <button class="chip active" onclick="setSet(null,this)">Tous sets</button>
-      <button class="chip" onclick="setSet('OP-01',this)">OP-01</button>
-      <button class="chip" onclick="setSet('OP-02',this)">OP-02</button>
-      <button class="chip" onclick="setSet('OP-03',this)">OP-03</button>
-      <button class="chip" onclick="setSet('OP-04',this)">OP-04</button>
-      <button class="chip" onclick="setSet('OP-05',this)">OP-05</button>
-      <button class="chip" onclick="setSet('OP-06',this)">OP-06</button>
-      <button class="chip" onclick="setSet('OP-07',this)">OP-07</button>
-      <button class="chip" onclick="setSet('OP-08',this)">OP-08</button>
-      <button class="chip" onclick="setSet('OP-09',this)">OP-09</button>
-      <button class="chip" onclick="setSet('OP-10',this)">OP-10</button>
-      <button class="chip" onclick="setSet('OP-11',this)">OP-11</button>
-      <button class="chip" onclick="setSet('OP-12',this)">OP-12</button>
-      <button class="chip" onclick="setSet('OP-13',this)">OP-13</button>
-      <button class="chip" onclick="setSet('OP-14',this)">OP-14</button>
-      <button class="chip" onclick="setSet('ST-01',this)">ST-01</button>
-      <button class="chip" onclick="setSet('ST-02',this)">ST-02</button>
-      <button class="chip" onclick="setSet('ST-03',this)">ST-03</button>
-      <button class="chip" onclick="setSet('ST-04',this)">ST-04</button>
-      <button class="chip" onclick="setSet('ST-05',this)">ST-05</button>
-      <button class="chip" onclick="setSet('ST-06',this)">ST-06</button>
-      <button class="chip" onclick="setSet('ST-07',this)">ST-07</button>
-      <button class="chip" onclick="setSet('ST-08',this)">ST-08</button>
-      <button class="chip" onclick="setSet('ST-09',this)">ST-09</button>
-      <button class="chip" onclick="setSet('ST-10',this)">ST-10</button>
-      <button class="chip" onclick="setSet('ST-11',this)">ST-11</button>
-      <button class="chip" onclick="setSet('ST-12',this)">ST-12</button>
-      <button class="chip" onclick="setSet('ST-13',this)">ST-13</button>
-      <button class="chip" onclick="setSet('ST-14',this)">ST-14</button>
-      <button class="chip" onclick="setSet('ST-15',this)">ST-15</button>
-      <button class="chip" onclick="setSet('EB-01',this)">EB-01</button>
-      <button class="chip" onclick="setSet('EB-02',this)">EB-02</button>
-      <button class="chip" onclick="setSet('EB-03',this)">EB-03</button>
-      <button class="chip" onclick="setSet('EB-04',this)">EB-04</button>
-      <button class="chip" onclick="setSet('PRB-01',this)">PRB-01</button>
-      <button class="chip" onclick="setSet('PROMO',this)">Promo</button>
     </div>
     <div class="stats-bar" id="statsBar">Chargement...</div>
   </div>
@@ -688,10 +653,55 @@ const RARITY_COLORS={'Leader':'#a855f7','SecretRare':'#ef4444','SuperRare':'#f59
 const RARITY_LABELS={'Leader':'Leader','SecretRare':'Secret Rare','SuperRare':'Super Rare','Rare':'Rare','Uncommon':'Uncommon','Common':'Common','Special':'Special'};
 
 let st={rarity:null,set:null,search:'',offset:0,total:0};
+let currentGame='onepiece';
 let currentCard=null;
 let searchTimer=null;
 let collection=JSON.parse(localStorage.getItem('opitem_collection')||'{}');
 let wishlist=JSON.parse(localStorage.getItem('opitem_wishlist')||'{}');
+
+const OP_RARITIES=['Leader','SecretRare','SuperRare','Rare','Uncommon','Common','Special','Promo'];
+const OP_RARITY_LABELS={Leader:'Leader',SecretRare:'Secret Rare',SuperRare:'Super Rare',Rare:'Rare',Uncommon:'Uncommon',Common:'Common',Special:'Special',Promo:'Promo'};
+const OP_SETS=['OP-01','OP-02','OP-03','OP-04','OP-05','OP-06','OP-07','OP-08','OP-09','OP-10','OP-11','OP-12','OP-13','OP-14','ST-01','ST-02','ST-03','ST-04','ST-05','ST-06','ST-07','ST-08','ST-09','ST-10','ST-11','ST-12','ST-13','ST-14','ST-15','EB-01','EB-02','EB-03','EB-04','PRB-01','PROMO'];
+const PK_RARITIES=['SecretRare','SuperRare','Rare','Uncommon','Common','Promo'];
+const PK_RARITY_LABELS={SecretRare:'Secret Rare',SuperRare:'Ultra Rare',Rare:'Rare',Uncommon:'Uncommon',Common:'Common',Promo:'Promo'};
+
+let pkSets=[];
+
+async function loadPokemonSets(){
+  if(pkSets.length) return;
+  const r=await fetch(`${SB_URL}/rest/v1/cards?game=eq.pokemon&select=set_id&limit=1000`,{
+    headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`}
+  });
+  const data=await r.json();
+  const unique=[...new Set(data.map(c=>c.set_id))].filter(Boolean).sort();
+  pkSets=unique;
+}
+
+function buildFilters(){
+  const rarities=currentGame==='onepiece'?OP_RARITIES:PK_RARITIES;
+  const labels=currentGame==='onepiece'?OP_RARITY_LABELS:PK_RARITY_LABELS;
+  const sets=currentGame==='onepiece'?OP_SETS:pkSets;
+
+  const rf=document.getElementById('rarityFilters');
+  rf.innerHTML=`<button class="chip active" onclick="setRarity(null,this)">Tout</button>`+
+    rarities.map(r=>`<button class="chip" onclick="setRarity('${r}',this)">${labels[r]||r}</button>`).join('');
+
+  const sf=document.getElementById('setFilters');
+  sf.innerHTML=`<button class="chip active" onclick="setSet(null,this)">Tous sets</button>`+
+    sets.map(s=>`<button class="chip" onclick="setSet('${s}',this)">${s}</button>`).join('');
+}
+
+async function switchGame(game){
+  if(game===currentGame) return;
+  currentGame=game;
+  document.getElementById('btnOP').classList.toggle('active',game==='onepiece');
+  document.getElementById('btnPK').classList.toggle('active',game==='pokemon');
+  st={rarity:null,set:null,search:'',offset:0,total:0};
+  document.getElementById('searchInput').value='';
+  if(game==='pokemon') await loadPokemonSets();
+  buildFilters();
+  fetchCards();
+}
 
 function save(){
   localStorage.setItem('opitem_collection',JSON.stringify(collection));
@@ -714,7 +724,7 @@ function buildEbayUrl(card){
 }
 
 async function fetchCards(append=false){
-  let params=[`limit=${LIMIT}`,`offset=${st.offset}`,`order=id`];
+  let params=[`limit=${LIMIT}`,`offset=${st.offset}`,`order=id`,`game=eq.${currentGame}`];
   if(st.search) params.push(`name=ilike.*${encodeURIComponent(st.search)}*`);
   if(st.rarity) params.push(`rarity=eq.${st.rarity}`);
   if(st.set) params.push(`set_id=eq.${st.set}`);
@@ -1064,6 +1074,8 @@ function applyLang(){
   try{
   const l = currentLang;
   document.getElementById('langBtn').textContent = l === 'fr' ? 'EN' : 'FR';
+  const tagline = document.getElementById('taglineText');
+  if(tagline) tagline.textContent = l === 'fr' ? 'Ton compagnon TCG' : 'Your TCG companion';
   document.getElementById('searchInput').placeholder = t('search');
   // Nav labels
   const navLabels = document.querySelectorAll('.nav-label');
@@ -1145,6 +1157,7 @@ if(HERO_IMAGE_URL !== 'YOUR_IMAGE_URL_HERE'){const hi=document.getElementById('h
 
 document.getElementById('searchInput').value='';
 st.search='';
+buildFilters();
 fetchCards();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
