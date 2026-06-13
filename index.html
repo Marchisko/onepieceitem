@@ -397,16 +397,49 @@ body::before{display:none;}
     <div class="page-inner-sub" id="collHeroSub">0 cartes · 0 sets</div>
   </div>
   <div class="page-inner" style="padding-top:16px;">
-    <div class="pc">
-      <div class="pc-title">Valeur estimée</div>
-      <div class="pc-value" id="portfolioValue">— €</div>
-      <div class="pc-sub" id="portfolioSub">Prix à venir avec PriceCharting</div>
-      <div class="pc-stats">
-        <div class="p-stat"><div class="p-stat-val" id="statTotal">0</div><div class="p-stat-lbl">Cartes</div></div>
-        <div class="p-stat"><div class="p-stat-val" id="statUnique">0</div><div class="p-stat-lbl">Uniques</div></div>
-        <div class="p-stat"><div class="p-stat-val" id="statSets">0</div><div class="p-stat-lbl">Sets</div></div>
+
+    <!-- Dashboard One Piece -->
+    <div style="margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div style="width:3px;height:16px;background:#e8c56d;border-radius:2px;"></div>
+        <div style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;">One Piece</div>
+      </div>
+      <div class="pc">
+        <div class="pc-title">Valeur estimée</div>
+        <div class="pc-value" id="portfolioValueOP">— €</div>
+        <div class="pc-sub" id="portfolioSubOP">—</div>
+        <div class="pc-stats">
+          <div class="p-stat"><div class="p-stat-val" id="statTotalOP">0</div><div class="p-stat-lbl">Cartes</div></div>
+          <div class="p-stat"><div class="p-stat-val" id="statUniqueOP">0</div><div class="p-stat-lbl">Uniques</div></div>
+          <div class="p-stat"><div class="p-stat-val" id="statSetsOP">0</div><div class="p-stat-lbl">Sets</div></div>
+        </div>
       </div>
     </div>
+
+    <!-- Dashboard Pokémon -->
+    <div style="margin-bottom:16px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div style="width:3px;height:16px;background:#CC0000;border-radius:2px;"></div>
+        <div style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;">Pokémon</div>
+      </div>
+      <div class="pc">
+        <div class="pc-title">Valeur estimée</div>
+        <div class="pc-value" id="portfolioValuePK">— €</div>
+        <div class="pc-sub" id="portfolioSubPK">—</div>
+        <div class="pc-stats">
+          <div class="p-stat"><div class="p-stat-val" id="statTotalPK">0</div><div class="p-stat-lbl">Cartes</div></div>
+          <div class="p-stat"><div class="p-stat-val" id="statUniquePK">0</div><div class="p-stat-lbl">Uniques</div></div>
+          <div class="p-stat"><div class="p-stat-val" id="statSetsPK">0</div><div class="p-stat-lbl">Sets</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toggle liste -->
+    <div style="display:flex;background:var(--bg3);border-radius:12px;padding:3px;gap:2px;margin-bottom:14px;">
+      <button id="collTabOP" onclick="setCollTab('onepiece')" style="flex:1;padding:8px;border:none;border-radius:9px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;background:var(--navy);color:#fff;transition:all .2s;">One Piece</button>
+      <button id="collTabPK" onclick="setCollTab('pokemon')" style="flex:1;padding:8px;border:none;border-radius:9px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;background:none;color:var(--text-dim);transition:all .2s;">Pokémon</button>
+    </div>
+
     <div id="collectionList"></div>
   </div>
 </div>
@@ -691,8 +724,8 @@ const PK_SET_NAMES = {
   'sv8pt5':'Destined Rivals','svp':'SVP Black Star Promos',
 };
 
-const OP_HERO = 'https://raw.githubusercontent.com/Marchisko/onepieceitem/main/hero.png';
-const PK_HERO = '';
+const OP_HERO = 'https://raw.githubusercontent.com/Marchisko/nakama/main/hero.png';
+const PK_HERO = 'https://raw.githubusercontent.com/Marchisko/nakama/main/hero-pokemon.png';
 const OP_RARITIES=['Leader','SecretRare','SuperRare','Rare','Uncommon','Common','Special','Promo'];
 const OP_RARITY_LABELS={Leader:'Leader',SecretRare:'Secret Rare',SuperRare:'Super Rare',Rare:'Rare',Uncommon:'Uncommon',Common:'Common',Special:'Special',Promo:'Promo'};
 const OP_SETS=['OP-01','OP-02','OP-03','OP-04','OP-05','OP-06','OP-07','OP-08','OP-09','OP-10','OP-11','OP-12','OP-13','OP-14','ST-01','ST-02','ST-03','ST-04','ST-05','ST-06','ST-07','ST-08','ST-09','ST-10','ST-11','ST-12','ST-13','ST-14','ST-15','EB-01','EB-02','EB-03','EB-04','PRB-01','PROMO'];
@@ -736,7 +769,7 @@ async function switchGame(game){
   const heroImg=document.getElementById('heroImg');
   if(heroImg){
     if(game==='onepiece') heroImg.src=OP_HERO;
-    else heroImg.src='';
+    else heroImg.src=PK_HERO;
   }
   if(game==='pokemon') await loadPokemonSets();
   buildFilters();
@@ -902,55 +935,26 @@ function closeModal(){
 }
 function handleModalClick(e){if(e.target.id==='modal')closeModal();}
 
-async function renderCollectionPage(){
-  const items=Object.values(collection);
-  const totalQty=items.reduce((s,i)=>s+i.qty,0);
-  const sets=new Set(items.map(i=>i.card.set_id)).size;
-  document.getElementById('statTotal').textContent=totalQty;
-  document.getElementById('statUnique').textContent=items.length;
-  document.getElementById('statSets').textContent=sets;
-  document.getElementById('collHeroSub').textContent=`${items.length} cartes uniques · ${sets} sets`;
-
-  // Calcul valeur totale depuis Supabase prices
-  if(items.length){
-    document.getElementById('portfolioValue').textContent='...';
-    document.getElementById('portfolioSub').textContent=`${items.length} cartes uniques · ${sets} sets`;
-    try {
-      const ids = items.map(i=>i.card.id);
-      // Fetch par batch de 50
-      let totalEur = 0;
-      let priced = 0;
-      for(let b=0; b<ids.length; b+=50){
-        const batch = ids.slice(b,b+50);
-        const inFilter = batch.map(id=>`"${id}"`).join(',');
-        const r = await fetch(`${SB_URL}/rest/v1/prices?card_id=in.(${batch.map(id=>encodeURIComponent(id)).join(',')})&select=card_id,price_market_usd,price_en_usd,price_usd`,{
-          headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`}
-        });
-        const prices = await r.json();
-        prices.forEach(p=>{
-          const item = collection[p.card_id];
-          if(!item) return;
-          const usd = p.price_market_usd || p.price_en_usd || p.price_usd;
-          if(usd){
-            totalEur += usd * EUR_RATE * item.qty;
-            priced++;
-          }
-        });
-      }
-      document.getElementById('portfolioValue').textContent = totalEur > 0 ? `${totalEur.toFixed(2)} €` : '— €';
-      document.getElementById('portfolioSub').textContent = priced > 0
-        ? `${priced} carte${priced>1?'s':''} évaluée${priced>1?'s':''} sur ${items.length}`
-        : `${items.length} cartes · valeur non disponible`;
-    } catch(e){
-      document.getElementById('portfolioValue').textContent='— €';
-    }
-  } else {
-    document.getElementById('portfolioValue').textContent='— €';
-    document.getElementById('portfolioSub').textContent= currentLang==='fr'?'Prix à venir avec PriceCharting':'Prices coming with PriceCharting';
+let collTab = 'onepiece';
+function setCollTab(game){
+  collTab = game;
+  const btnOP = document.getElementById('collTabOP');
+  const btnPK = document.getElementById('collTabPK');
+  if(btnOP && btnPK){
+    btnOP.style.background = game==='onepiece' ? 'var(--navy)' : 'none';
+    btnOP.style.color = game==='onepiece' ? '#fff' : 'var(--text-dim)';
+    btnPK.style.background = game==='pokemon' ? '#CC0000' : 'none';
+    btnPK.style.color = game==='pokemon' ? '#fff' : 'var(--text-dim)';
   }
-  const list=document.getElementById('collectionList');
+  renderCollectionList();
+}
+
+function renderCollectionList(){
+  const items = Object.values(collection).filter(i => (i.card.game||'onepiece') === collTab);
+  const list = document.getElementById('collectionList');
+  if(!list) return;
   if(!items.length){
-    list.innerHTML=`<div class="empty-state"><div class="empty-icon">📦</div><div class="empty-title">${currentLang==='fr'?'Collection vide':'Empty collection'}</div><div class="empty-sub">${currentLang==='fr'?'Parcours les cartes et appuie sur<br>"+ Collection"':'Browse cards and tap<br>"+ Collection"'}</div></div>`;
+    list.innerHTML=`<div class="empty-state"><div class="empty-icon">${collTab==='pokemon'?'🎴':'⚔️'}</div><div class="empty-title">${currentLang==='fr'?'Aucune carte':'No cards'}</div><div class="empty-sub">${currentLang==='fr'?`Parcours les cartes ${collTab==='pokemon'?'Pokémon':'One Piece'} et appuie sur "+ Collection"`:`Browse ${collTab==='pokemon'?'Pokémon':'One Piece'} cards and tap "+ Collection"`}</div></div>`;
     return;
   }
   list.innerHTML=items.map(item=>`
@@ -958,7 +962,7 @@ async function renderCollectionPage(){
       <img class="list-thumb" src="${imgUrl(item.card.image_url)||''}" onerror="this.style.opacity=0">
       <div class="list-info">
         <div class="list-name">${item.card.name||'—'}</div>
-        <div class="list-meta">${item.card.set_id||''} · ${RARITY_LABELS[item.card.rarity]||item.card.rarity||''}</div>
+        <div class="list-meta">${collTab==='pokemon'?(PK_SET_NAMES[item.card.set_id]||item.card.set_id):item.card.set_id||''} · ${RARITY_LABELS[item.card.rarity]||item.card.rarity||''}</div>
       </div>
       <div class="list-right">
         <div class="list-qty">${item.qty}</div>
@@ -966,6 +970,60 @@ async function renderCollectionPage(){
         <button class="list-remove" onclick="removeCollection(event,'${item.card.id}')">🗑</button>
       </div>
     </div>`).join('');
+}
+
+async function calcGameValue(game){
+  const items = Object.values(collection).filter(i => (i.card.game||'onepiece') === game);
+  if(!items.length) return {value:0, priced:0, total:0, sets:0};
+  const ids = items.map(i=>i.card.id);
+  let totalEur=0, priced=0;
+  for(let b=0; b<ids.length; b+=50){
+    const batch = ids.slice(b,b+50);
+    try{
+      const r = await fetch(`${SB_URL}/rest/v1/prices?card_id=in.(${batch.map(id=>encodeURIComponent(id)).join(',')})&select=card_id,price_market_usd,price_en_usd,price_usd`,{
+        headers:{"apikey":SB_KEY,"Authorization":`Bearer ${SB_KEY}`}
+      });
+      const prices = await r.json();
+      prices.forEach(p=>{
+        const item=collection[p.card_id];
+        if(!item) return;
+        const usd=p.price_market_usd||p.price_en_usd||p.price_usd;
+        if(usd){ totalEur+=usd*EUR_RATE*item.qty; priced++; }
+      });
+    }catch(e){}
+  }
+  return {
+    value: totalEur,
+    priced,
+    total: items.reduce((s,i)=>s+i.qty,0),
+    unique: items.length,
+    sets: new Set(items.map(i=>i.card.set_id)).size
+  };
+}
+
+async function renderCollectionPage(){
+  const all = Object.values(collection);
+  const totalAll = all.reduce((s,i)=>s+i.qty,0);
+  const setsAll = new Set(all.map(i=>i.card.set_id)).size;
+  document.getElementById('collHeroSub').textContent=`${all.length} cartes uniques · ${setsAll} sets`;
+
+  // Stats OP
+  const op = await calcGameValue('onepiece');
+  document.getElementById('statTotalOP').textContent = op.total||0;
+  document.getElementById('statUniqueOP').textContent = op.unique||0;
+  document.getElementById('statSetsOP').textContent = op.sets||0;
+  document.getElementById('portfolioValueOP').textContent = op.value>0 ? `${op.value.toFixed(2)} €` : '— €';
+  document.getElementById('portfolioSubOP').textContent = op.priced>0 ? `${op.priced} carte${op.priced>1?'s':''} évaluée${op.priced>1?'s':''}` : `${op.unique||0} cartes · valeur non disponible`;
+
+  // Stats PK
+  const pk = await calcGameValue('pokemon');
+  document.getElementById('statTotalPK').textContent = pk.total||0;
+  document.getElementById('statUniquePK').textContent = pk.unique||0;
+  document.getElementById('statSetsPK').textContent = pk.sets||0;
+  document.getElementById('portfolioValuePK').textContent = pk.value>0 ? `${pk.value.toFixed(2)} €` : '— €';
+  document.getElementById('portfolioSubPK').textContent = pk.priced>0 ? `${pk.priced} carte${pk.priced>1?'s':''} évaluée${pk.priced>1?'s':''}` : `${pk.unique||0} cartes · valeur non disponible`;
+
+  renderCollectionList();
 }
 function removeCollection(e,id){
   e.stopPropagation();
